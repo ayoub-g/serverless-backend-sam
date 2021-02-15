@@ -1,0 +1,11 @@
+{
+    "httpMethod": "GET",
+    "queryStringParameters": {
+        "bookid": "6b9c1408-b291-48c0-935c-ab11f00d28d9"
+    },
+    "body": {
+        "title": "Die empty: Unleash Your Best Work Every Day",
+        "author": "Todd Henry",
+        "pubdate": "1356998400"
+    }
+}

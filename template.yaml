@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: "AWS::Serverless-2016-10-31"
+Resources:
+  BooksTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: Books
+      PrimaryKey:
+        Name: bookid
+        Type: String
+  sampleSamFunction:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Runtime: nodejs12.x
+      Handler: index.handler
+      CodeUri: ./src
+      Timeout: 10
+      Policies:
+        - Statement:
+            - Sid: "getBook"
+              Resource: "arn:aws:dynamodb:eu-west-1:xxxxxxxxxxxx:table/Books"
+              Effect: "Allow"
+              Action:
+                - "dynamodb:getItem"
+            - Sid: "addBook"
+              Resource: "arn:aws:dynamodb:eu-west-1:xxxxxxxxxxxx:table/Books"
+              Effect: "Allow"
+              Action:
+                - "dynamodb:PutItem"
+            - Sid: "deleteBook"
+              Resource: "arn:aws:dynamodb:eu-west-1:xxxxxxxxxxxx:table/Books"
+              Effect: "Allow"
+              Action:
+                - "dynamodb:deleteItem"
+            - Sid: "updateBook"
+              Resource: "arn:aws:dynamodb:eu-west-1:xxxxxxxxxxxx:table/Books"
+              Effect: "Allow"
+              Action:
+                - "dynamodb:updateItem"
+            - Sid: "getAllBook"
+              Resource: "arn:aws:dynamodb:eu-west-1:xxxxxxxxxxxx:table/Books"
+              Effect: "Allow"
+              Action:
+                - "dynamodb:Scan"
+      Events:
+        Books:
+          Type: Api
+          Properties:
+            Path: "/book"
+            Method: "any"
